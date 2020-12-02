@@ -13,7 +13,7 @@ def find_entries(numbers, goal, r):
         if sum(combo) == goal:
             return combo
 
-def product(*numbers):
+def product(numbers):
     i = None
     for i in itertools.accumulate(numbers, operator.mul):
         ...
@@ -22,7 +22,7 @@ def product(*numbers):
 def _main(goal, r):
     numbers = load()
     entries = find_entries(numbers, goal=goal, r=r)
-    return product(*entries)
+    return product(entries)
 
 
 def part_1():
