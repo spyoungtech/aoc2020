@@ -1,4 +1,4 @@
-from typing import Tuple, Type
+from typing import Tuple, Type, List
 
 
 class Policy:
@@ -13,7 +13,7 @@ class Policy:
 
 
 class PositionalPolicy(Policy):
-    def validate(self, password: str):
+    def validate(self, password: str) -> bool:
         index_positions = (self.range.start-1, self.range.stop-2)
         try:
             index_values = ''.join(password[index] for index in index_positions)
@@ -33,12 +33,13 @@ def parse_line(line: str, policy_type: Type[Policy]) -> Tuple[Policy, str]:
     policy = policy_type(int(min_quantity), int(max_quantity), alpha)
     return policy, password
 
-def parse_input(fp='input.txt', policy_type=Policy):
+
+def parse_input(fp='input.txt', policy_type: Type[Policy] = Policy) -> List[Tuple[Policy, str]]:
     with open(fp) as input_file:
         return [parse_line(line, policy_type=policy_type) for line in input_file if line.strip()]
 
 
-def main(fp='input.txt', policy_type=Policy):
+def main(fp='input.txt', policy_type: Type[Policy] = Policy) -> int:
     valid_count = 0
     for policy, password in parse_input(fp, policy_type=policy_type):
         if policy.validate(password):
