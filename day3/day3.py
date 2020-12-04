@@ -21,10 +21,8 @@ class CyclicalString:
             return ''.join(
                 char for _, char in takewhile(lambda x: x[0] < item.stop, iterable)
             )
-
-        for index, char in enumerate(cycle(self._initial_string)):
-            if index == item:
-                return char
+        index = item % len(self)
+        return self._initial_string[index]
 
     def __repr__(self):
         return f'<CyclicalString {repr(self._initial_string)}>'
